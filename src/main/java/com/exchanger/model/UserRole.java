@@ -1,22 +1,20 @@
 package com.exchanger.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Role {
+@Table(name = "user_role")
+public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String role;
 
-    public Role() {
+    public UserRole() {
     }
 
-    public Role(String role) {
+    public UserRole(String role) {
         this.role = role;
     }
 
@@ -38,7 +36,7 @@ public class Role {
 
     @Override
     public String toString() {
-        return "Role{" +
+        return "UserRole{" +
                 "id=" + id +
                 ", role='" + role + '\'' +
                 '}';
