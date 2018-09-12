@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Registration Form</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 </head>
 <body>
-$END$
+<div id = "user-room"></div>
+<script type="text/babel">
+    ReactDOM.render(
+        <div>
+            <h1>Welcome dear friend</h1>
+            <h3>This you User room</h3>
+            <p>In this room you can found email from another users into this system</p>
+            <p>And can send and get new mail</p>
+        </div>,
+        document.getElementById("user-room")
+        );
+</script>
 </body>
 </html>
