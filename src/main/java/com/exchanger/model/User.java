@@ -8,27 +8,27 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     private String login;
     private String password;
     private String email;
-    private Integer userRole;
-
+    @OneToOne
+    @JoinColumn(name = "id")
+    private UserRole userRole;
     public User() {
     }
 
-    public User(String login, String password, String email, Integer userRole) {
+    public User(String login, String password, String email, UserRole userRole) {
         this.login = login;
         this.password = password;
         this.email = email;
         this.userRole = userRole;
     }
 
-    public Integer getUserRole() {
+    public UserRole getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(Integer userRole) {
+    public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
 

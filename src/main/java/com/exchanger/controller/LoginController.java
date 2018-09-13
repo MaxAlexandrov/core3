@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
     @GetMapping("/user-room")
-    public String beginLogin(@RequestParam(name = "login", required = false, defaultValue = "admin") String name, Model model){
+    public String beginLogin(@RequestParam(name = "name", required = false, defaultValue = "admin") String name, Model model){
+        model.addAttribute("name" ,name);
         return "user-room";
     }
     @GetMapping("/regestration")

@@ -9,11 +9,18 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String textMessage;
-    private Integer userTo;
-    private Integer userFrom;
-    private Integer messageType;
-    private Integer messageStatus;
-
+    @OneToOne
+    @JoinColumn(name = "id")
+    private User userTo;
+    @OneToOne
+    @JoinColumn(name = "id")
+    private User userFrom;
+    @OneToOne
+    @JoinColumn(name = "id")
+    private MessageType messageType;
+    @OneToOne
+    @JoinColumn(name = "id")
+    private MessageStatus messageStatus;
 
     public Message() {
     }
@@ -22,8 +29,8 @@ public class Message {
         this.textMessage = textMessage;
     }
 
-    public Message(String textMessadge, Integer userTo, Integer userFrom, Integer messageType, Integer messageStatus) {
-        this.textMessage = textMessadge;
+    public Message(String textMessage, User userTo, User userFrom, MessageType messageType, MessageStatus messageStatus) {
+        this.textMessage = textMessage;
         this.userTo = userTo;
         this.userFrom = userFrom;
         this.messageType = messageType;
@@ -46,35 +53,39 @@ public class Message {
         this.textMessage = textMessage;
     }
 
-    public Integer getUserTo() {
+    public String getTextMessage() {
+        return textMessage;
+    }
+
+    public User getUserTo() {
         return userTo;
     }
 
-    public void setUserTo(Integer userTo) {
+    public void setUserTo(User userTo) {
         this.userTo = userTo;
     }
 
-    public Integer getUserFrom() {
+    public User getUserFrom() {
         return userFrom;
     }
 
-    public void setUserFrom(Integer userFrom) {
+    public void setUserFrom(User userFrom) {
         this.userFrom = userFrom;
     }
 
-    public Integer getMessageType() {
+    public MessageType getMessageType() {
         return messageType;
     }
 
-    public void setMessageType(Integer messageType) {
+    public void setMessageType(MessageType messageType) {
         this.messageType = messageType;
     }
 
-    public Integer getMessageStatus() {
+    public MessageStatus getMessageStatus() {
         return messageStatus;
     }
 
-    public void setMessageStatus(Integer messageStatus) {
+    public void setMessageStatus(MessageStatus messageStatus) {
         this.messageStatus = messageStatus;
     }
 

@@ -3,18 +3,18 @@ package com.exchanger.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_status")
-public class UserStatus {
+@Table(name = "message_status")
+public class MessageStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String status;
 
-    public UserStatus() {
+    public MessageStatus() {
     }
 
-    public UserStatus(String status) {
+    public MessageStatus(String status) {
         this.status = status;
     }
 
@@ -36,7 +36,7 @@ public class UserStatus {
 
     @Override
     public String toString() {
-        return "UserStatus{" +
+        return "MessageStatus{" +
                 "id=" + id +
                 ", role='" + status + '\'' +
                 '}';

@@ -1,0 +1,27 @@
+package com.exchanger;
+
+import com.exchanger.controller.LoginController;
+import com.exchanger.controller.MainController;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import static org.assertj.core.api.Assertions.assertThat;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class LoginTest {
+
+    @Autowired
+    private MainController mainController;
+
+    @Autowired
+    private LoginController loginController;
+
+    @Test
+    public void testControllers()throws Exception{
+            assertThat(mainController).isNotNull();
+            assertThat(loginController).isNotNull();
+    }
+}
