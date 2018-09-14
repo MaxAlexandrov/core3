@@ -21,7 +21,7 @@ public class LoginTest {
 
     @Test
     public void testControllers()throws Exception{
-            assertThat(mainController).isNotNull();
-            assertThat(loginController).isNotNull();
+        assertThat(mainController).isNotNull();
+        assertThat(loginController).isNotNull();
     }
 }

@@ -2,6 +2,7 @@ package com.exchanger.model;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "user_role")
 public class UserRole {
@@ -10,13 +11,6 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String role;
-
-    public UserRole() {
-    }
-
-    public UserRole(String role) {
-        this.role = role;
-    }
 
     public Integer getId() {
         return id;

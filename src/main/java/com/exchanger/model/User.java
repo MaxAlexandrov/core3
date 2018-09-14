@@ -11,27 +11,15 @@ public class User {
     private String login;
     private String password;
     private String email;
-    @OneToOne
-    @JoinColumn(name = "id")
-    private UserRole userRole;
+
     public User() {
     }
 
-    public User(String login, String password, String email, UserRole userRole) {
+    public User(String login, String password, String email) {
         this.login = login;
         this.password = password;
         this.email = email;
-        this.userRole = userRole;
     }
-
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -71,7 +59,6 @@ public class User {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", userRole='" + userRole + '\'' +
                 '}';
     }
 }

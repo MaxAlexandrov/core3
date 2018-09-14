@@ -1,11 +1,15 @@
 package com.exchanger.controller;
 
 import com.exchanger.model.User;
+import com.exchanger.model.UserRole;
 import com.exchanger.repository.UserRepository;
+import com.exchanger.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 public class MainController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserRoleRepository userRoleRepository;
 
     @GetMapping("/add")
     public @ResponseBody String addUsers(@RequestParam String login, @RequestParam String password, @RequestParam String email, Model model){
@@ -26,9 +32,11 @@ public class MainController {
         return "add";
     }
     @GetMapping("/all")
-    public @ResponseBody Iterable<User> getAllUser(){
+    public @ResponseBody
+    List<User> getAllUser(){
     return userRepository.findAll();
     }
+
     @PostMapping(path = "/checklogin")
     public @ResponseBody String checker(@RequestParam String login, @RequestParam String password){
         Iterable<User> iterable = userRepository.findAll();
