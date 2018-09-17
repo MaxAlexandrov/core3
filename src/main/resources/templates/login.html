@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8">
-    <title>Registration Form</title>
-    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <title>Spring Security Example </title>
 </head>
 <body>
 <div th:if="${param.error}">
@@ -14,25 +11,13 @@
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
-<div id = "login"></div>
-<!--script type="text/babel">
-    ReactDOM.render(
-        <div>
-            <form id = "login_form" method="get" action="/login">
-               <div><label> User name: <input type="text" name="login" autofocus ="autofocus" placeholder="login" /> </label></div>
-               <div><label> Password:  <input type="password" name="password" placeholder="password" /> </label></div>
-                <button type="submit">Sign In</button>
-            </form>
-        </div>,
-        document.getElementById("login")
-        );
-</script-->
-<div>
-    <form id = "login_form" method="post" action="/login">
-        <div><label> User name: <input type="text" name="login" autofocus ="autofocus" placeholder="login" /> </label></div>
-        <div><label> Password:  <input type="password" name="password" placeholder="password" /> </label></div>
-        <button type="submit">Sign In</button>
-    </form>
-</div>
+<hr>
+<form th:action="@{/login}" method="post">
+    <div><label> User Name : <input type="text" name="username"/> </label></div>
+    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div><input type="submit" value="Sign In"/></div>
+</form>
+<hr>
+<span><p><a href="/registration">Registration new User </a></p></span>
 </body>
 </html>

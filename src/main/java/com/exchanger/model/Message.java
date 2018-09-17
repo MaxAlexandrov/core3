@@ -1,6 +1,7 @@
 package com.exchanger.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "messages")
@@ -15,26 +16,18 @@ public class Message {
     @OneToOne
     @JoinColumn(name = "id")
     private User userFrom;
-    @OneToOne
-    @JoinColumn(name = "id")
-    private MessageType messageType;
-    @OneToOne
-    @JoinColumn(name = "id")
-    private MessageStatus messageStatus;
+    private Date dateSend;
+    private Date dateGet;
 
     public Message() {
     }
 
-    public Message(String textMessage) {
-        this.textMessage = textMessage;
-    }
-
-    public Message(String textMessage, User userTo, User userFrom, MessageType messageType, MessageStatus messageStatus) {
+    public Message(String textMessage, User userTo, User userFrom, Date dateSend, Date dateGet) {
         this.textMessage = textMessage;
         this.userTo = userTo;
         this.userFrom = userFrom;
-        this.messageType = messageType;
-        this.messageStatus = messageStatus;
+        this.dateSend = dateSend;
+        this.dateGet = dateGet;
     }
 
     public Integer getId() {
@@ -45,16 +38,12 @@ public class Message {
         this.id = id;
     }
 
-    public String getTextMessadge() {
+    public String getTextMessage() {
         return textMessage;
     }
 
     public void setTextMessage(String textMessage) {
         this.textMessage = textMessage;
-    }
-
-    public String getTextMessage() {
-        return textMessage;
     }
 
     public User getUserTo() {
@@ -73,20 +62,20 @@ public class Message {
         this.userFrom = userFrom;
     }
 
-    public MessageType getMessageType() {
-        return messageType;
+    public Date getDateSend() {
+        return dateSend;
     }
 
-    public void setMessageType(MessageType messageType) {
-        this.messageType = messageType;
+    public void setDateSend(Date dateSend) {
+        this.dateSend = dateSend;
     }
 
-    public MessageStatus getMessageStatus() {
-        return messageStatus;
+    public Date getDateGet() {
+        return dateGet;
     }
 
-    public void setMessageStatus(MessageStatus messageStatus) {
-        this.messageStatus = messageStatus;
+    public void setDateGet(Date dateGet) {
+        this.dateGet = dateGet;
     }
 
     @Override
@@ -96,8 +85,8 @@ public class Message {
                 ", textMessage='" + textMessage + '\'' +
                 ", userTo=" + userTo +
                 ", userFrom=" + userFrom +
-                ", messageType=" + messageType +
-                ", messageStatus=" + messageStatus +
+                ", dateSend=" + dateSend +
+                ", dateGet=" + dateGet +
                 '}';
     }
 }

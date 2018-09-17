@@ -4,8 +4,8 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "user_role")
-public class UserRole {
+@Table(name = "roles")
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,7 +30,7 @@ public class UserRole {
 
     @Override
     public String toString() {
-        return "UserRole{" +
+        return "Role{" +
                 "id=" + id +
                 ", role='" + role + '\'' +
                 '}';

@@ -2,14 +2,12 @@
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
-        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <!-- Создание таблицы user_role и заполнение полей Ролей  -->
 
         <changeSet id="1" author="maksim">
-        <createTable tableName="user_role">
+        <createTable tableName="roles">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -19,11 +17,11 @@
         </createTable>
         </changeSet>
         <changeSet id="2" author="maksim">
-            <insert tableName="user_role">
+            <insert tableName="roles">
                 <column name="id" value="1"/>
                 <column name="role" value="admin"/>
             </insert>
-            <insert tableName="user_role">
+            <insert tableName="roles">
                 <column name="id" value="2"/>
                 <column name="role" value="user"/>
             </insert>
@@ -45,9 +43,6 @@
                 <column name="email" type="varchar(100)">
                     <constraints nullable="false"/>
                 </column>
-                <column name="userRole" type="int">
-                    <constraints nullable="false"/>
-                </column>
             </createTable>
         </changeSet>
         <changeSet id="4" author="maksim">
@@ -55,48 +50,42 @@
                 <column name="login" value="max"/>
                 <column name="password" value="max"/>
                 <column name="email" value="max@mail.ru"/>
-                <column name="userRole" value="1"/>
             </insert>
             <insert tableName="users">
                 <column name="login" value="one"/>
                 <column name="password" value="one"/>
                 <column name="email" value="one@mail.ru"/>
-                <column name="userRole" value="2"/>
             </insert>
             <insert tableName="users">
                 <column name="login" value="two"/>
                 <column name="password" value="two"/>
                 <column name="email" value="two@mail.ru"/>
-                <column name="userRole" value="2"/>
             </insert>
             <insert tableName="users">
                 <column name="login" value="three"/>
                 <column name="password" value="three"/>
                 <column name="email" value="three@mail.ru"/>
-                <column name="userRole" value="2"/>
             </insert>
             <insert tableName="users">
                 <column name="login" value="fore"/>
                 <column name="password" value="fore"/>
                 <column name="email" value="fore@mail.ru"/>
-                <column name="userRole" value="2"/>
             </insert>
             <insert tableName="users">
                 <column name="login" value="five"/>
                 <column name="password" value="five"/>
                 <column name="email" value="five@mail.ru"/>
-                <column name="userRole" value="2"/>
             </insert>
         </changeSet>
     <!--//////////////////////////////////////////////////////-->
 
-    <!-- Создание таблицы message_status и заполнение полей для status  -->
+    <!-- Создание таблицы message_status и заполнение полей для messageStatus  >
         <changeSet id="5" author="maksim">
             <createTable tableName="message_status">
                 <column name="id" type="int" autoIncrement="true">
                     <constraints primaryKey="true" nullable="false"/>
                 </column>
-                <column name="status" type="varchar(50)">
+                <column name="messageStatus" type="varchar(50)">
                     <constraints nullable="false"/>
                 </column>
             </createTable>
@@ -104,16 +93,16 @@
         <changeSet id="6" author="maksim">
             <insert tableName="message_status">
                 <column name="id" value="1"/>
-                <column name="status" value="send"/>
+                <column name="messageStatus" value="send"/>
             </insert>
             <insert tableName="message_status">
                 <column name="id" value="2"/>
-                <column name="status" value="received"/>
+                <column name="messageStatus" value="received"/>
             </insert>
         </changeSet>
-    <!--//////////////////////////////////////////////////////-->
+    <//////////////////////////////////////////////////////-->
 
-    <!-- Создание таблицы message_type и заполнение полей для type  -->
+    <!-- Создание таблицы message_type и заполнение полей для type  >
         <changeSet id="7" author="maksim">
             <createTable tableName="message_type">
                 <column name="id" type="int" autoIncrement="true">
@@ -134,7 +123,7 @@
                 <column name="type" value="order"/>
             </insert>
         </changeSet>
-    <!--//////////////////////////////////////////////////////-->
+    </////////////////////////////////////////////////////-->
 
     <!-- Создание таблицы message и заполнение полей для mail -->
 
@@ -152,11 +141,11 @@
             <column name="userFrom" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="messageType" type="int">
+            <column name="dateSend" type="datetime">
                 <constraints nullable="false"/>
             </column>
-            <column name="messageStatus" type="int">
-                <constraints nullable="false"/>
+            <column name="dateGet" type="datetime">
+                <constraints nullable="true"/>
             </column>
         </createTable>
     </changeSet>
@@ -166,50 +155,49 @@
             <column name="textMessage" value="Добрый вечер как дела?"/>
             <column name="userTo" value="1"/>
             <column name="userFrom" value="2"/>
-            <column name="messageType" value="1"/>
-            <column name="messageStatus" value="1"/>
+            <column name="dateSend" value="10.12.2012"/>
+            <column name="dateGet" value="14.12.2012"/>
         </insert>
         <insert tableName="messages">
             <column name="id" value="2"/>
-            <column name="textMessage" value="Что новенького?"/>
-            <column name="userTo" value="2"/>
-            <column name="userFrom" value="1"/>
-            <column name="messageType" value="1"/>
-            <column name="messageStatus" value="2"/>
+            <column name="textMessage" value="Добрый вечер как дела?"/>
+            <column name="userTo" value="1"/>
+            <column name="userFrom" value="3"/>
+            <column name="dateSend" value="10.12.2012"/>
+            <column name="dateGet" value="14.12.2012"/>
         </insert>
         <insert tableName="messages">
             <column name="id" value="3"/>
-            <column name="textMessage" value="Чем занят?"/>
-            <column name="userTo" value="3"/>
-            <column name="userFrom" value="1"/>
-            <column name="messageType" value="2"/>
-            <column name="messageStatus" value="1"/>
+            <column name="textMessage" value="Добрый вечер как дела?"/>
+            <column name="userTo" value="2"/>
+            <column name="userFrom" value="4"/>
+            <column name="dateSend" value="10.12.2012"/>
+            <column name="dateGet" value="14.12.2012"/>
         </insert>
         <insert tableName="messages">
             <column name="id" value="4"/>
-            <column name="textMessage" value="Привет, все очень хорошо"/>
-            <column name="userTo" value="4"/>
-            <column name="userFrom" value="5"/>
-            <column name="messageType" value="2"/>
-            <column name="messageStatus" value="1"/>
+            <column name="textMessage" value="Добрый вечер как дела?"/>
+            <column name="userTo" value="1"/>
+            <column name="userFrom" value="2"/>
+            <column name="dateSend" value="10.12.2012"/>
+            <column name="dateGet" value="14.12.2012"/>
         </insert>
         <insert tableName="messages">
             <column name="id" value="5"/>
-            <column name="textMessage" value="Перезвони мне"/>
-            <column name="userTo" value="5"/>
-            <column name="userFrom" value="4"/>
-            <column name="messageType" value="2"/>
-            <column name="messageStatus" value="1"/>
+            <column name="textMessage" value="Добрый вечер как дела?"/>
+            <column name="userTo" value="1"/>
+            <column name="userFrom" value="2"/>
+            <column name="dateSend" value="10.12.2012"/>
+            <column name="dateGet" value="14.12.2012"/>
         </insert>
         <insert tableName="messages">
             <column name="id" value="6"/>
-            <column name="textMessage" value="Пока"/>
+            <column name="textMessage" value="Добрый вечер как дела?"/>
             <column name="userTo" value="1"/>
             <column name="userFrom" value="2"/>
-            <column name="messageType" value="1"/>
-            <column name="messageStatus" value="1"/>
+            <column name="dateSend" value="10.12.2012"/>
+            <column name="dateGet" value="14.12.2012"/>
         </insert>
-
     </changeSet>
     <!--//////////////////////////////////////////////////////-->
 

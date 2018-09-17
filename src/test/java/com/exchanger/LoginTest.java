@@ -1,6 +1,6 @@
 package com.exchanger;
 
-import com.exchanger.controller.LoginController;
+import com.exchanger.controller.RegistrationController;
 import com.exchanger.controller.MainController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,11 +17,11 @@ public class LoginTest {
     private MainController mainController;
 
     @Autowired
-    private LoginController loginController;
+    private RegistrationController registrationController;
 
     @Test
     public void testControllers()throws Exception{
         assertThat(mainController).isNotNull();
-        assertThat(loginController).isNotNull();
+        assertThat(registrationController).isNotNull();
     }
 }
