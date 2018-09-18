@@ -23,17 +23,16 @@ public class MainController {
         return "user-room";
     }
 
-    @GetMapping("/add")
-    public @ResponseBody String addUsers(@RequestParam String login, @RequestParam String password, @RequestParam String email, Model model){
-        User user = new User();
-        user.setLogin(login);
-        user.setPassword(password);
-        user.setEmail(email);
-        userRepository.save(user);
-        Iterable<User> users = userRepository.findAll();
-        model.addAttribute("user",users);
-        return "add";
-    }
+//    @PostMapping("/add")
+//    public  String addUsers(User user, Model model){
+//        if(userRepository.findBylogin(user.getLogin())!=null){
+//            model.addAttribute("message","This user already exist in system!");
+//            return "registration";
+//        }
+//        userRepository.save(user);
+//        model.addAttribute("user",user);
+//        return "redirect:/login";
+//    }
     @GetMapping("/all")
     public @ResponseBody
     List<User> getAllUser(){
