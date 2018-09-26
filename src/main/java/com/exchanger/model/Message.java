@@ -4,28 +4,26 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "messages")
+@Table(name = "message")
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String textMessage;
-    @OneToOne
-    @JoinColumn(name = "id")
-    private User userTo;
-    @OneToOne
-    @JoinColumn(name = "id")
-    private User userFrom;
+    private String text_message;
+    private Integer user_to;
+    private Integer user_from;
+    private Integer message_type;
     private Date dateSend;
     private Date dateGet;
 
     public Message() {
     }
 
-    public Message(String textMessage, User userTo, User userFrom, Date dateSend, Date dateGet) {
-        this.textMessage = textMessage;
-        this.userTo = userTo;
-        this.userFrom = userFrom;
+    public Message(String text_message, Integer user_to, Integer user_from, Integer message_type, Date dateSend, Date dateGet) {
+        this.text_message = text_message;
+        this.user_to = user_to;
+        this.user_from = user_from;
+        this.message_type = message_type;
         this.dateSend = dateSend;
         this.dateGet = dateGet;
     }
@@ -38,28 +36,36 @@ public class Message {
         this.id = id;
     }
 
-    public String getTextMessage() {
-        return textMessage;
+    public String getText_message() {
+        return text_message;
     }
 
-    public void setTextMessage(String textMessage) {
-        this.textMessage = textMessage;
+    public void setText_message(String text_message) {
+        this.text_message = text_message;
     }
 
-    public User getUserTo() {
-        return userTo;
+    public Integer getUser_to() {
+        return user_to;
     }
 
-    public void setUserTo(User userTo) {
-        this.userTo = userTo;
+    public void setUser_to(Integer user_to) {
+        this.user_to = user_to;
     }
 
-    public User getUserFrom() {
-        return userFrom;
+    public Integer getUser_from() {
+        return user_from;
     }
 
-    public void setUserFrom(User userFrom) {
-        this.userFrom = userFrom;
+    public void setUser_from(Integer user_from) {
+        this.user_from = user_from;
+    }
+
+    public Integer getMessage_type() {
+        return message_type;
+    }
+
+    public void setMessage_type(Integer message_type) {
+        this.message_type = message_type;
     }
 
     public Date getDateSend() {
@@ -82,9 +88,10 @@ public class Message {
     public String toString() {
         return "Message{" +
                 "id=" + id +
-                ", textMessage='" + textMessage + '\'' +
-                ", userTo=" + userTo +
-                ", userFrom=" + userFrom +
+                ", text_message='" + text_message + '\'' +
+                ", user_to=" + user_to +
+                ", user_from=" + user_from +
+                ", message_type=" + message_type +
                 ", dateSend=" + dateSend +
                 ", dateGet=" + dateGet +
                 '}';

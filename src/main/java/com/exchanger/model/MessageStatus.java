@@ -2,21 +2,19 @@ package com.exchanger.model;
 
 import javax.persistence.*;
 
-
 @Entity
-@Table(name = "role")
-public class Role {
-
+@Table(name = "message_status")
+public class MessageStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String role;
+    private String status;
 
-    public Role() {
+    public MessageStatus() {
     }
 
-    public Role(String role) {
-        this.role = role;
+    public MessageStatus(String status) {
+        this.status = status;
     }
 
     public Integer getId() {
@@ -27,19 +25,19 @@ public class Role {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getStatus() {
+        return status;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "Role{" +
+        return "MessageType{" +
                 "id=" + id +
-                ", role='" + role + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

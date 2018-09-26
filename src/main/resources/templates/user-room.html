@@ -2,97 +2,80 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Registration Form</title>
+    <title>Private Area</title>
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <link href="../static/style.css" th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-</form>
-<div id = "user-room">{{name}}</div>
-<script type="text/babel">
-    ReactDOM.render(
-        <div>
-            <h1>Welcome to Personal Area</h1>
-            <h3>This you private office</h3>
-            <p>In this room you can found and sending email from another users into this system</p>
-            <p>And can send and get new mail</p>
-                <div><h3>Send CUSTOM mail</h3>
-                    <label>Select user for send</label>
-                    <form id = "custom_mail" method="post">
-                           <select>
-                                <p>one</p>
-                                <p>two</p>
-                                <p>three</p>
-                                <p>fore</p>
-                                <p>five</p>
-                            </select>
-                         <input type="text" name="text" placeholder="Here enter text for you friend" />
-                         <button type="submit">Send CUSTOM mail</button>
-                    </form>
-                </div>
-                <div><h3>Send NORMAL mail</h3>
-                    <label>Select user for send</label>
-                    <form id = "custom_mail" method="post">
-                            <select>
-                                <p>one</p>
-                                <p>two</p>
-                                <p>three</p>
-                                <p>fore</p>
-                                <p>five</p>
-                            </select>
-                           <input type="text" name="text" placeholder="Here enter text for you friend" />
-                         <button type="submit">Send NORMAL mail</button>
-                    </form>
-                </div>
-                <div>
-                <h2>Table all sent and got mails</h2>
-                <table>
-                    <tr>
-                        <th>#</th>
-                        <th>Custom/Normal</th>
-                        <th>Date send</th>
-                        <th>User</th>
-                        <th>Header</th>
-                        <th>Status</th>
-                        <th>Date get</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Normal</td>
-                        <td>10.12.2018</td>
-                        <td>max</td>
-                        <td>greeting fore max</td>
-                        <td>get</td>
-                        <td>13.12.2018</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Normal</td>
-                        <td>10.12.2018</td>
-                        <td>stas</td>
-                        <td>greeting fore max</td>
-                        <td>get</td>
-                        <td>13.12.2018</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Normal</td>
-                        <td>10.12.2018</td>
-                        <td>user</td>
-                        <td>greeting fore max</td>
-                        <td>get</td>
-                        <td>13.12.2018</td>
-                    </tr>
-                </table>
-                </div>
-        </div>,
-        document.getElementById("user-room")
-        );
-</script>
+    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    </form>
+    <div id = "main"></div>
+
+<div>
+    <h3>SEND MESSAGE:</h3>
+        <form method="post" action = "send" >
+                <input type="email" name="email" placeholder="mail you friend" /> </br>
+                <p><textarea name="textMessage" cols="40" rows="4" placeholder="You message..."></textarea></p></br>
+                <input type="typeM" name="typeM" placeholder="custom/normal" /></br>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <button type="submit">Send Message</button>
+        </form>
+    <div id = "success">
+        <div th:switch="${success}">
+            <p th:case="null"> Filter </p>
+            <p th:case="*" th:text = ${success}/>
+        </div>
+    </div>
+</div>
+
+    <div>
+        <form method="post" action = "filter">
+            <input type="text" name="filter">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit">SHOW</button>
+        </form>
+        <h3>GOT MESSAGE FILTER:</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>&nbsp</th>
+                <th>EmailTo</th>
+                <th>EmailFrom</th>
+                <th>Text</th>
+                <th>DateSend</th>
+                <th>DateGet</th>
+                <th>Custom/Normal</th>
+            </tr>
+            </thead>
+            <th:block th:each="message : ${all_message}">
+                <tr>
+                    <td th:text="${message.id}"/>
+                    <td th:text="${message.user_to}"/>
+                    <td th:text="${message.user_from}"/>
+                    <td th:text="${message.text_message}"/>
+                    <td th:text="${message.dateSend}"/>
+                    <td th:text="${message.dateGet}"/>
+                    <td th:text="${message.message_type}"/>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+    <script type="text/babel">
+        ReactDOM.render(
+            <div>
+                <h1>Welcome to Personal Area</h1>
+                <h3>This you private office</h3>
+                <p>In this room you can found and sending email from another users into this system</p>
+                <p>And can send and get new mail</p>
+            </div>,
+            document.getElementById("main")
+            );
+    </script>
 </body>
 </html>

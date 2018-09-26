@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrative Page</title>
+    <link href="../static/style.css" th:href="@{/style.css}" rel="stylesheet" />
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+</form>
+<div id = "admin"></div>
+<script type="text/babel">
+    ReactDOM.render(
+        <div>
+            <h1>Welcome to Administrative Area</h1>
+            <p>In this room you can found all about your users and them messages(sending mail into this system)</p>
+            <p>And can send and get new mail</p>
+        </div>,
+        document.getElementById("admin")
+        );
+</script>
+<div>
+    <form method="post" action = "filter">
+        <input type="text" name="filter">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit">SHOW</button>
+    </form>
+    <hr>
+    <h3>GOT MESSAGE ALL USERS FILTER:</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>&nbsp</th>
+            <th>EmailTo</th>
+            <th>EmailFrom</th>
+            <th>Text</th>
+            <th>DateSend</th>
+            <th>DateGet</th>
+            <th>Custom/Normal</th>
+        </tr>
+        </thead>
+        <th:block th:each="message : ${all_message}">
+            <tr>
+                <td th:text="${message.id}"/>
+                <td th:text="${message.user_to}"/>
+                <td th:text="${message.user_from}"/>
+                <td th:text="${message.text_message}"/>
+                <td th:text="${message.dateSend}"/>
+                <td th:text="${message.dateGet}"/>
+                <td th:text="${message.message_type}"/>
+            </tr>
+        </th:block>
+    </table>
+</div>
+</body>
+</html>

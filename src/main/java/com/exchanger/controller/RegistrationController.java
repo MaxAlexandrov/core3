@@ -1,5 +1,6 @@
 package com.exchanger.controller;
 
+import com.exchanger.model.RoleEnum;
 import com.exchanger.model.User;
 import com.exchanger.repository.RoleRepository;
 import com.exchanger.repository.UserRepository;
@@ -8,7 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Collections;
+import java.util.List;
 
 
 @Controller
@@ -25,15 +31,23 @@ public class RegistrationController {
         return "registration";
     }
 
-    @PostMapping("add")
-    public String add(@ModelAttribute User user, Model model){
-//        User userFromDB = userRepository.findBylogin(login);
-//        if(userFromDB!=null){
-//            model.addAttribute("message", "This login exist in System");
-//            return "registration";
-//        }
-        logger.info("A INFO Зашли в POST Mapping/");
+    @PostMapping
+    public String addUserInDB(User user, Model model){
+        List<User> userFromDB = userRepository.findAll();
+        if(userFromDB!=null) {
+            for (User userUnit : userFromDB) {
+                if(userUnit.getLogin().equals(user.getLogin())) {
+                    model.addAttribute("message", "This LOGIN exist in System. Please change login");
+                    return "registration";
+                }else if(userUnit.getEmail().equals(user.getEmail())){
+                    model.addAttribute("message", "This EMAIL exist in System. Please change email");
+                    return "registration";
+                }
+            }
+        }
+        user.setRole(Collections.singleton(RoleEnum.USER));
+        user.setEnabled(true);
         userRepository.save(user);
-        return "redirect:/";
+        return "redirect:/login";
     }
 }
