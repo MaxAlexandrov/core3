@@ -116,11 +116,11 @@
         <changeSet id="6" author="maksim">
             <insert tableName="message_status">
                 <column name="id" value="1"/>
-                <column name="status" value="send"/>
+                <column name="status" value="SEND"/>
             </insert>
             <insert tableName="message_status">
                 <column name="id" value="2"/>
-                <column name="status" value="received"/>
+                <column name="status" value="RECEIVED"/>
             </insert>
         </changeSet>
     <!--/////////////////////////////////////////////////////-->

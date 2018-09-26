@@ -15,17 +15,19 @@ public class Message {
     private Integer message_type;
     private Date dateSend;
     private Date dateGet;
+    private Integer status;
 
     public Message() {
     }
 
-    public Message(String text_message, Integer user_to, Integer user_from, Integer message_type, Date dateSend, Date dateGet) {
+    public Message(String text_message, Integer user_to, Integer user_from, Integer message_type, Date dateSend, Date dateGet, Integer status) {
         this.text_message = text_message;
         this.user_to = user_to;
         this.user_from = user_from;
         this.message_type = message_type;
         this.dateSend = dateSend;
         this.dateGet = dateGet;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -84,6 +86,14 @@ public class Message {
         this.dateGet = dateGet;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
@@ -94,6 +104,7 @@ public class Message {
                 ", message_type=" + message_type +
                 ", dateSend=" + dateSend +
                 ", dateGet=" + dateGet +
+                ", status=" + status +
                 '}';
     }
 }

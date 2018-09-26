@@ -9,3 +9,7 @@ table{
    th {
     background: #E6E6FA; /* Цвет фона */
    }
+   textarea{
+    width:60%;
+    height:50px;
+   }

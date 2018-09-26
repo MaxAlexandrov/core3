@@ -51,17 +51,19 @@
                 <th>DateSend</th>
                 <th>DateGet</th>
                 <th>Custom/Normal</th>
+                <th>STATUS</th>
             </tr>
             </thead>
             <th:block th:each="message : ${all_message}">
                 <tr>
                     <td th:text="${message.id}"/>
-                    <td th:text="${message.user_to}"/>
-                    <td th:text="${message.user_from}"/>
-                    <td th:text="${message.text_message}"/>
+                    <td th:text="${message.emailTo}"/>
+                    <td th:text="${message.emailFrom}"/>
+                    <td th:text="${message.text}"/>
                     <td th:text="${message.dateSend}"/>
                     <td th:text="${message.dateGet}"/>
-                    <td th:text="${message.message_type}"/>
+                    <td th:text="${message.type}"/>
+                    <td th:text="${message.status}"/>
                 </tr>
             </th:block>
         </table>
