@@ -1,12 +1,17 @@
 package com.exchanger.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.DefaultLoginPageConfigurer;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.sql.DataSource;
 
@@ -19,18 +24,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/admin-room").hasRole("ADMIN")
-                .antMatchers("/user-room").hasRole("USER")
-                .antMatchers( "/registration","/registration/**","/error").permitAll()
-                .anyRequest().authenticated()
+                    .authorizeRequests()
+                    .antMatchers("/admin/","admin/**/*.*").access("hasRole('ADMIN')")
+                    .antMatchers("/login").anonymous()
+                    .antMatchers("/user/","user/**/*.*").access("hasRole('USER')")
+                    .antMatchers( "/registration","/registration/**","/error").permitAll()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                    .authorizeRequests()
+                    .anyRequest().authenticated()
                 .and()
-                .logout()
-                .permitAll();
+                    .formLogin().successHandler(savedRequestAwareAuthenticationSuccessHandler())
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .loginPage("/login")
+                    .permitAll()
+                .and()
+                    .logout()
+                    .permitAll()
+                 .and()
+                    .rememberMe().tokenRepository(persistentTokenRepository())
+                    .tokenValiditySeconds(1209600);
+                    http.removeConfigurer(DefaultLoginPageConfigurer.class);;
+    }
+    @Bean
+    public SavedRequestAwareAuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler() {
+        SavedRequestAwareAuthenticationSuccessHandler auth = new SavedRequestAwareAuthenticationSuccessHandler();
+        auth.setTargetUrlParameter("targetUrl");
+        return auth;
+    }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+        db.setDataSource(dataSource);
+        return db;
     }
 
     @Override

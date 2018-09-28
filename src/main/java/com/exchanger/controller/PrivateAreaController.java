@@ -39,7 +39,7 @@ public class PrivateAreaController {
         return "user-room";
     }
 
-    @PostMapping("filter")
+    @PostMapping("/filter")
     public String filter(@RequestParam String filter, Model model) {
         List<Map> listMessages = new ArrayList<>();
         Map<String,Object> mapMessage;

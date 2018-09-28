@@ -45,7 +45,7 @@ public class RegistrationController {
                 }
             }
         }
-        user.setRole(Collections.singleton(RoleEnum.USER));
+        user.setRole(Collections.singleton(RoleEnum.ROLE_USER));
         user.setEnabled(true);
         userRepository.save(user);
         return "redirect:/login";
